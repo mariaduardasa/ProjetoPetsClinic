@@ -68,7 +68,7 @@ router.put('/edit/:id', (req, res) => {
 //delete tutor
 router.delete('/delete/:id', (req,res) =>{
     const tutor_id = req.params.id;
-
+    
     Pet.destroy(
         {where: 
             {tutor_id: tutor_id}
@@ -84,5 +84,5 @@ router.delete('/delete/:id', (req,res) =>{
     })
     .catch(err => console.log(err));
 })
-    
+  
 module.exports= router;
