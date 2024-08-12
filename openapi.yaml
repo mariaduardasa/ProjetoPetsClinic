@@ -1,0 +1,276 @@
+openapi: 3.0.3
+info:
+  title: Projeto Pets Clinic
+  description: |
+    This API allows for the management of tutors and their pets. It provides endpoints to perform CRUD operations (create, read, update, and delete) on tutor and pet information.
+  version: 0.0.1
+
+tags:
+  - name: pet
+    description: Endpoints for pet management.
+  - name: tutor
+    description: Endpoints for managing tutors and their pets.
+
+paths:
+  /edit/{id}:
+    put:
+      tags:
+        - pet
+      summary: Update a pet.
+      description: Update a pet based on the provided ID.
+      operationId: updatePet
+      parameters:
+        - name: id
+          in: path
+          description: ID of the pet to be updated
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Pet data to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        '200':
+          description: Edited.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+
+  /add:
+    post:
+      tags:
+        - pet
+      summary: Create a new pet.
+      description: Create a new pet.
+      operationId: addPet
+      requestBody:
+        description: Pet data to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+
+
+  /delete/{id}:
+    delete:
+      tags:
+        - pet
+      summary: Delete a pet.
+      description: Deletes an existing pet based on the provided ID.
+      operationId: deletePet
+      parameters:
+        - name: id
+          in: path
+          description: ID of the pet to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Deleted
+
+  /addTutor:
+    post:
+      tags:
+        - tutor
+      summary: Create a new tutor.
+      description: Create a new tutor.
+      operationId: addTutor
+      requestBody:
+        description: Tutor data to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tutor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tutor'
+        required: true
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tutor'
+                
+
+
+  /tutor:
+    get:
+      tags:
+        - tutor
+      summary: List all tutors and their pets.
+      description: A list of all tutors and their associated pets.
+      operationId: list
+      responses:
+        '200':
+          description: List of tutors and pets found.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TutorPet'
+                  
+                          
+                  
+
+  /edittutor/{id}:
+    put:
+      tags:
+        - tutor
+      summary: Update Tutor.
+      description: Updates an existing tutor based on the provided ID.
+      operationId: updateTutor
+      parameters:
+        - name: id
+          in: path
+          description: ID of the tutor to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Tutor data to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tutor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tutor'
+        required: true
+      responses:
+        '200':
+          description: Edited.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tutor'
+                
+  /deletetutor/{id}:
+    delete:
+      tags:
+        - tutor
+      summary: Delete a tutor and their associated pets.
+      description: Deletes an existing tutor based on the provided ID and removes all pets associated with that tutor.
+      operationId: deleteTutor
+      parameters:
+        - name: id
+          in: path
+          description: ID of the tutor to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Deleted.
+
+components:
+  schemas:
+    Tutor:
+      required:
+        - name
+        - phone
+        - email
+        - date_of_birth
+        - zip_code
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Maria Eduarda
+        phone:
+          type: string
+          example: '85984565'
+        email:
+          type: string
+          example: maria@gmail.com
+        date_of_birth:
+          type: string
+          example: 2001-10-16
+        zip_code:
+          type: string
+          example: '76335000'
+
+    Pet:
+      required:
+        - name
+        - species
+        - carry
+        - weight
+        - date_of_birth
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Amora
+        species:
+          type: string
+          example: cachorro
+        carry:
+          type: string
+          example: p
+        weight:
+          type: integer
+          example: 5
+        date_of_birth:
+          type: string
+          example: 2021-10-12
+        tutor_id:
+          type: integer
+          example: 1
+          
+    
+    TutorPet:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Maria Eduarda
+        phone:
+          type: string
+          example: '85984565'
+        email:
+          type: string
+          example: maria@gmail.com
+        date_of_birth:
+          type: string
+          example: 2001-10-16
+        zip_code:
+          type: string
+          example: '76335000'
+        pets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pet'
+          
+ 

@@ -16,7 +16,7 @@ const Pet = db.define('pet', {
         type: Sequelize.INTEGER,
     },
     date_of_birth: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATEONLY,
     },
     tutor_id: {
         type: Sequelize.INTEGER,

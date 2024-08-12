@@ -13,7 +13,7 @@ const Tutor = db.define('tutor', {
         type: Sequelize.STRING,
     },
     date_of_birth: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATEONLY,
     },
     zip_code: {
         type: Sequelize.INTEGER,
