@@ -13,6 +13,9 @@ npm install -D nodemon
 npm run dev
 ```
 
+
+
+
 ## Endpoints para testar a API:
 ## Listar Tutores e seus Pets: GET /tutors/list
 ```bash 
